@@ -9,6 +9,13 @@ export class PincodeService {
   create(createPincodeDto: CreatePincodeDto) {
     return 'This action adds a new pincode';
   }
+  findPostOffice(search: string) {
+    return this.pincodeRepository.getPostOffice(search);
+    // return search;
+  }
+  findPincode(pincode: string) {
+    return this.pincodeRepository.findPincode(pincode);
+  }
 
   findAll() {
     return this.pincodeRepository.getAllStates();

@@ -17,4 +17,15 @@ export class PincodeRepository implements OnModuleDestroy {
     const states: string[] = data.map((state) => state.StateName);
     return { states } as StatesResponseDto;
   }
+  async getPostOffice(search: string) {
+    const data = await this
+      .sql`SELECT * FROM pincode WHERE "OfficeName" % ${search} ORDER BY similarity("OfficeName", ${search}) DESC LIMIT 10`;
+    return data;
+  }
+
+  async findPincode(pincode: string) {
+    const data = await this
+      .sql`SELECT * FROM pincode WHERE "Pincode" = ${pincode}`;
+    return data;
+  }
 }

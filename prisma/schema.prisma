@@ -1,0 +1,45 @@
+// npx prisma db push - create the database schema
+// npx prisma generate - generate the Prisma Client
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  gender    Gender
+  email     String
+  phone     String
+  other     Json?
+  address   Address?
+
+  @@unique([email, phone])
+  @@map("contacts")
+}
+
+model Address {
+  id        Int     @id @default(autoincrement())
+  line1     String
+  line2     String?
+  city      String
+  state     String
+  country   String
+  zipCode   String
+  Contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  contactId Int     @unique
+
+  @@map("addresses")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}

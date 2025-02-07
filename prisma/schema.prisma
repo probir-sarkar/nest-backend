@@ -2,12 +2,15 @@
 // npx prisma generate - generate the Prisma Client
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+
+  schemas = ["contacts"]
 }
 
 model Contact {
@@ -22,6 +25,7 @@ model Contact {
 
   @@unique([email, phone])
   @@map("contacts")
+  @@schema("contacts")
 }
 
 model Address {
@@ -36,10 +40,13 @@ model Address {
   contactId Int     @unique
 
   @@map("addresses")
+  @@schema("contacts")
 }
 
 enum Gender {
   MALE
   FEMALE
   OTHER
+  @@map("genders")
+  @@schema("contacts")
 }

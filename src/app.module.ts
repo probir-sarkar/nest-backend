@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { PincodeModule } from './pincode/pincode.module';
 import { ConfigModule } from '@nestjs/config';
 import { QuickEditModule } from './quick-edit/quick-edit.module';
+import { TicTacToeModule } from './tic-tac-toe/tic-tac-toe.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { QuickEditModule } from './quick-edit/quick-edit.module';
     }),
     PincodeModule,
     QuickEditModule,
+    TicTacToeModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
